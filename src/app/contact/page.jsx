@@ -2,6 +2,11 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import Form from '@/components/form/Form';
 
+export const metadata = {
+  title: 'Contact Page',
+  description: 'Test Contact Page Metadata',
+};
+
 const Contact = () => {
   return (
     <div className={styles.container}>

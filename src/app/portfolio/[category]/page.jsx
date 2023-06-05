@@ -12,6 +12,8 @@ const Category = ({ params: { category } }) => {
         <h1 className={styles.catTitle}>Category Not Found</h1>
       </div>
     );
+
+    //  or return notFound from next/navigation
   }
 
   return (
