@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './navbar.module.css';
 import ToggleMode from '../toggleMode/ToggleMode';
+import { signOut, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const links = [
   {
@@ -36,6 +40,9 @@ const links = [
 ];
 
 const Navbar = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+
   return (
     <header className={styles.container}>
       <Link href='/' className='logo'>
@@ -51,7 +58,19 @@ const Navbar = () => {
             </Link>
           );
         })}
-        <button className={styles.btn}>Logout</button>
+        {session?.user ? (
+          <button className={styles.btn} onClick={signOut}>
+            Logout
+          </button>
+        ) : (
+          <button
+            type='button'
+            onClick={() => router.push('/dashboard/login')}
+            className={styles.btn}
+          >
+            Login
+          </button>
+        )}
       </navbar>
     </header>
   );
