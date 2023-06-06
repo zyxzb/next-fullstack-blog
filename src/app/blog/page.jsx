@@ -5,12 +5,9 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 async function getData() {
-  const res = await fetch(
-    'https://next-fullstack-blog-zyxzb.vercel.app/api/posts',
-    {
-      cache: 'no-store',
-    },
-  );
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts`, {
+    cache: 'no-store',
+  });
 
   console.log(res);
 

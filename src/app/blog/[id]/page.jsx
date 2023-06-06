@@ -4,12 +4,9 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 
 const getData = async (id) => {
-  const res = await fetch(
-    `https://next-fullstack-blog-zyxzb.vercel.app/api/posts/${id}`,
-    {
-      cache: 'no-store',
-    },
-  );
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${id}`, {
+    cache: 'no-store',
+  });
 
   if (!res.ok) {
     return notFound();
