@@ -1,9 +1,13 @@
 'use client';
 
 import styles from './page.module.css';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
+  const session = useSession();
+  const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value;
@@ -14,6 +18,15 @@ const Login = () => {
       password,
     });
   };
+
+  if (session?.status === 'loading') {
+    return <p>loading...</p>;
+  }
+
+  if (session?.status === 'authenticated') {
+    return router.push('/dashboard');
+  }
+
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -33,7 +46,9 @@ const Login = () => {
           Login
         </button>
       </form>
-      <button onClick={() => signIn('google')}>Login With Google</button>
+      <button onClick={() => signIn('google')} className={styles.button}>
+        Login With Google
+      </button>
     </div>
   );
 };

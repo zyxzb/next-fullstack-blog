@@ -1,12 +1,15 @@
 'use client';
+
 import Link from 'next/link';
 import styles from './page.module.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 const Register = () => {
   const [error, setError] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +32,10 @@ const Register = () => {
       setError(true);
     }
   };
+
+  if (session?.user) {
+    return router.push('/dashboard');
+  }
 
   return (
     <div className={styles.container}>

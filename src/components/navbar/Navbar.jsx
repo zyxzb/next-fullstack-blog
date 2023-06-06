@@ -42,6 +42,7 @@ const links = [
 const Navbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
+  console.log(session);
 
   return (
     <header className={styles.container}>
@@ -69,6 +70,15 @@ const Navbar = () => {
             className={styles.btn}
           >
             Login
+          </button>
+        )}
+        {!session?.user && (
+          <button
+            type='button'
+            onClick={() => router.push('/dashboard/register')}
+            className={styles.btn}
+          >
+            Register
           </button>
         )}
       </navbar>
